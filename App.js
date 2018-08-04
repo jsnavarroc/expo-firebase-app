@@ -10,7 +10,7 @@ export default class App extends React.Component {
      <BackgroundImage
       source = {require('./assets/images/3.jpg') }
      >
-      <Text style = {{color:'#fff', marginTop:100 }}>Hola</Text>
+      <Text style = {{color:'#fff', marginTop:100 }}>Hola esta es una app de Johan</Text>
      </BackgroundImage>
     );
   }
