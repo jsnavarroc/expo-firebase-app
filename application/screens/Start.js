@@ -16,7 +16,13 @@ class Start extends Component {
     }
 
 
-    register(){}
+    register(){
+        const navigateAction = NavigationActions.navigate({
+            routeName: 'Register'
+        });
+        this.props.navigation.dispatch(navigateAction);
+
+    }
     async facebook(){}
     render() {
         return (<BackgroundImage source={require('../../assets/images/3.jpg')}>

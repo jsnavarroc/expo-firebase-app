@@ -1,7 +1,7 @@
 import {createStackNavigator} from 'react-navigation';
 import StartScreen from '../screens/Start';
 import LoginScreen from '../screens/Login';
-
+import RegisterScreen from '../screens/Register';
 
 
   export default createStackNavigator(
@@ -11,6 +11,9 @@ import LoginScreen from '../screens/Login';
              },
         Login:{
                 screen:LoginScreen 
+             },
+        Register:{
+                screen:RegisterScreen 
              },
 
     },
