@@ -2,13 +2,20 @@ import React, { Component } from 'react';
 import {View} from 'react-native';
 import BackgroundImage from '../components/BackgroundImage';
 import AppButton from '../components/AppButton';
-
+import { NavigationActions } from 'react-navigation';
 import Firebase from '../utils/firebase';
 import firebase from 'firebase'; 
 firebase.initializeApp(Firebase);
 
 class Start extends Component {
-    loging(){}
+    login(){
+        const navigateAction = NavigationActions.navigate({
+            routeName: 'Login'
+        });
+        this.props.navigation.dispatch(navigateAction);
+    }
+
+
     register(){}
     async facebook(){}
     render() {
@@ -17,7 +24,7 @@ class Start extends Component {
                         <AppButton
                             bgColor = "rgba(111, 38, 74, 0.7)"
                             title = "Entrar"
-                            action = { this.loging.bind(this) }
+                            action = { this.login.bind(this) }
                             iconName = {"sign-in"}
                             iconSize = {30}
                             iconColor = "#FFF"

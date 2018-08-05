@@ -5,6 +5,8 @@ import BackgroundImage from '../components/BackgroundImage';
 import {View} from 'react-native';
 import {Card} from 'react-native-elements';
 import AppButton from '../components/AppButton';
+import Toast from 'react-native-simple-toast';
+import firebase from 'firebase'; 
 const Form = t.form.Form;
 class Login extends Component {
     constructor() {
@@ -22,15 +24,35 @@ class Login extends Component {
                 },
                 password: {
                     help: 'Introduce tu password',
-                    error: 'password no valido',
+                    error: 'Password no valido',
                     password: true,
-                    secureTextEntrt:true,
+                    secureTextEntry:true,
                 }
             }
         }
     }
 
-    login(){}
+    login(){
+ 
+            const validate = this.refs.form.getValue();
+            if(validate){
+                firebase.auth().signInWithEmailAndPassword(validate.email, validate.password)
+                .then(() => {
+                    Toast.showWithGravity("Bienvenido", Toast.LONG, Toast.BOTTOM);
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    if(errorCode === 'outh/wrong-password'){
+                        Toast.showWithGravity("Password Incorrecto", Toast.LONG, Toast.BOTTOM);
+                    }else{
+                        Toast.showWithGravity(errorMessage, Toast.LONG, Toast.BOTTOM);
+                    }        
+                });
+            }
+
+
+    }
     
     render() {
         return (
@@ -45,10 +67,11 @@ class Login extends Component {
                             <AppButton
                                 bgColor = "rgba(111, 38, 74, 0.7)"
                                 title = "Login"
-                                action = { this.login.bind()}
+                                action = { this.login.bind(this)}
                                 iconName = {"sign-in"}
                                 iconSize = {30}
                                 iconColor = "#FFF"
+                                widthProp = {333}
                             />
                         </Card>
                     </View>

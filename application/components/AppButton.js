@@ -6,8 +6,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const AppButton = (props) => {
-    const {action, iconName, iconColor, title, bgColor, iconSize} = props;
-    const {width} = Dimensions.get('window');
+    var width = 0;
+    const {action, iconName, iconColor, title, bgColor, iconSize, widthProp} = props;
+    widthProp ?  width = widthProp : width = Dimensions.get('window').width;
+
     const butttonStyles = {
         backgroundColor:bgColor,
         height:45,
@@ -42,6 +44,7 @@ AppButton.propTypes = {
     iconName : PropTypes.string.isRequired,
     iconColor : PropTypes.string.isRequired,
     iconSize : PropTypes.number.isRequired, 
+    widthProp: PropTypes.number,
 };
 
 
