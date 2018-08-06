@@ -5,5 +5,5 @@
     databaseURL: "https://cursoexpofirebase-90bb5.firebaseio.com",
     projectId: "cursoexpofirebase-90bb5",
     storageBucket: "cursoexpofirebase-90bb5.appspot.com",
-    messagingSenderId: "875535003370"
+    messagingSenderId: "875535003370",
   };
