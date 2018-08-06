@@ -5,6 +5,8 @@ import AppButton from '../components/AppButton';
 import { NavigationActions } from 'react-navigation';
 import Firebase from '../utils/firebase';
 import firebase from 'firebase'; 
+import facebook from '../utils/facebook';
+import Toast from 'react-native-simple-toast';
 firebase.initializeApp(Firebase);
 
 class Start extends Component {
@@ -23,7 +25,25 @@ class Start extends Component {
         this.props.navigation.dispatch(navigateAction);
 
     }
-    async facebook(){}
+    async facebook(){
+        const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
+            facebook.config.application_id, 
+            {permissions: facebook.config.permissions}
+        );
+
+        // signInWithCredential(credentials)
+        if (type === 'success') {
+            const credentials = firebase.auth.FacebookAuthProvider.credential(token);
+            firebase.auth().signInAndRetrieveDataWithCredential(credentials)
+            .catch(error => {
+                Toast.showWithGravity(error.message, Toast.LONG, Toast.BOTTOM);    
+            });
+        }else if (type === 'cancel'){
+            Toast.showWithGravity('Incio de cesión cancelado', Toast.LONG, Toast.BOTTOM);    
+        }else{
+            Toast.showWithGravity('Error desconocido', Toast.LONG, Toast.BOTTOM);    
+        }
+    }
     render() {
         return (<BackgroundImage source={require('../../assets/images/3.jpg')}>
                     <View style={{justifyContent:'center', flex:1}}>

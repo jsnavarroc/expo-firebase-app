@@ -63,7 +63,6 @@ class Register extends Component {
                     Toast.showWithGravity("Registro correcto", Toast.LONG, Toast.BOTTOM);
                 })
                 .catch((error) => {
-                    console.log(error);
                     Toast.showWithGravity(error.message, Toast.LONG, Toast.BOTTOM);    
                 });
         }
