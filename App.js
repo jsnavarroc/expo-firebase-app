@@ -17,11 +17,19 @@ export default class App extends React.Component {
     await firebase.auth().onAuthStateChanged(user => {
       if(user!==null){
         this.setState({
+          isLogged : true,
+          loaded : true,
+        });
+      }else{
+        this.setState({
           isLogged : false,
           loaded : true,
         });
       }
     });
+    
+    // firebase.auth().signOut();
+    
   }
   
   render() {

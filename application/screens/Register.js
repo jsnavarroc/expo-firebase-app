@@ -5,6 +5,8 @@ import BackgroundImage from '../components/BackgroundImage';
 import {View} from 'react-native';
 import {Card} from 'react-native-elements';
 import AppButton from '../components/AppButton';
+import firebase from 'firebase'; 
+import Toast from 'react-native-simple-toast';
 const Form = t.form.Form;
 
 class Register extends Component {
@@ -51,22 +53,27 @@ class Register extends Component {
     }
     
     register(){
-        console.log(this.state);
-        try {
-            this.validate = this.refs.form.getValue();
-        } catch (error) {
-            console.log(error);
+       
+        
+        if(this.validate){
+                firebase.auth().createUserWithEmailAndPassword(
+                    this.validate.email, this.validate.password
+                )
+                .then(() => {
+                    Toast.showWithGravity("Registro correcto", Toast.LONG, Toast.BOTTOM);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    Toast.showWithGravity(error.message, Toast.LONG, Toast.BOTTOM);    
+                });
         }
         
     }
 
     onChange(user){
         this.setState({user});
-        try {
-            this.validate = this.refs.form.getValue();
-        } catch (error) {
-            console.log(error);
-        }
+        
+        this.validate = this.refs.form.getValue();
     }
     render() {
         return (
